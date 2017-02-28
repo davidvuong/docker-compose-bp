@@ -1,0 +1,25 @@
+{
+  "name": "http_server",
+  "version": "1.0.0",
+  "description": "A simple HTTP server with a single /hit endpoint",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel ./src/ -d ./build/ --copy-files",
+    "watch": "babel -w ./src/ -d ./build/ --copy-files",
+    "start": "./node_modules/nodemon/bin/nodemon.js ./build/index.js -w ./build/"
+  },
+  "author": "David Vuong <david.vuong256@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "4.0.0",
+    "express": "4.14.1",
+    "lodash": "4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "6.23.0",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-stage-2": "6.22.0",
+    "nodemon": "1.11.0"
+  }
+}

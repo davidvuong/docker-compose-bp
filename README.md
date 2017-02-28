@@ -18,13 +18,22 @@ brew cask install docker-toolbox
 
 ## Running the project
 
+Start the containers:
+
 ```
-???
+docker-compose rm -f
+docker-compose up --force-recreate
+```
+
+Create the database:
+
+```
+docker-compose run --rm db createdb my-db -h db -U postgres
 ```
 
 ## Project setup
 
-We have 3 NodeJS projects. I've artificially inflated some projects with an unnecessarily large amount of dependencies to test how well big projects (i.e. projects that take up a large amount of disk space) perform. There's also a single PostgreSQL instance running 9.6.1 as well as 3 SQS mock queues (via ElasticMQ).
+We have 3 NodeJS projects. I've artificially inflated some projects with an unnecessarily large amount of dependencies to test how well big projects (i.e. projects that take up a large amount of disk space) perform. There's also a single PostgreSQL instance running 9.6.2 as well as 3 SQS mock queues (via ElasticMQ).
 
 The flow is quite simple. We have a single HTTP server with a single endpoint named `/hit`. It accepts POST requests in the form:
 
