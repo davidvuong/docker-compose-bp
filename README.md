@@ -16,6 +16,8 @@ brew cask install docker
 brew cask install docker-toolbox
 ```
 
+This project was only tested on a Mac however theoretically it should work on any platform that's supported by Docker.
+
 ## Running the project
 
 Start the containers:
@@ -31,18 +33,21 @@ Create the database:
 docker-compose run --rm db createdb my-db -h db -U postgres
 ```
 
-## Project setup
+## Project structure
 
-We have 3 NodeJS projects. I've artificially inflated some projects with an unnecessarily large amount of dependencies to test how well big projects (i.e. projects that take up a large amount of disk space) perform. There's also a single PostgreSQL instance running 9.6.2 as well as 3 SQS mock queues (via ElasticMQ).
+There are 6 separate services in used in this demonstration:
 
-The flow is quite simple. We have a single HTTP server with a single endpoint named `/hit`. It accepts POST requests in the form:
+1. A simple service that serves an index.html file (Django)
+1. A HTTP API used by the frontend JavaScript inside the index.html file (Scala HTTP4s)
+1. A SQS worker (worker A) to consume messages posted by the HTTP API (Ruby)
+1. A SQS worker (worker B) downstream for more message consumption (NodeJS)
+1. A SQS worker (worker C) downstream for more message consumption ()
+1. A SQS worker (worker D) downstream to store the message into a PostgreSQL database (Python)
 
-```json
-{
-  "data": "any random string you'd like to include here"
-}
-```
+## Flow
 
-1. HTTP server receives a request, applies basic transformation, pushes to SQS queue
-1. Workers poll the SQS queue for messages, upon receiving a new message, applies more transformation, pushes to another SQS queue
-1. More workers pull from the 2nd SQS queue, applies even more transformation and adds the record into a PostgreSQL database
+TODO
+
+## Dockerfile and docker-compose structure
+
+TODO

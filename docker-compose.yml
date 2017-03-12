@@ -9,13 +9,13 @@ services:
       - ./apps/http_server:/root/app
     ports:
       - '8100:8080'
-#    links:
-#      - sqs
-#  sqs:
-#    image: 'expert360/elasticmq:0.12.1'
-#    volumes:
-#      - ./config/elasticmq.conf:/elasticmq/custom.conf
-#    ports:
-#      - '9324:9324'
-#  db:
-#    image: 'postgres:9.6.2'
+    links:
+      - sqs
+  sqs:
+    image: 'expert360/elasticmq:0.12.1'
+    volumes:
+      - ./config/elasticmq.conf:/elasticmq/custom.conf
+    ports:
+      - '9324:9324'
+  db:
+    image: 'postgres:9.6.2'
