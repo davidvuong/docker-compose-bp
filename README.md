@@ -69,9 +69,9 @@ TODO
 
 ## Useful Docker commands
 
-Install a dependency within your docker container:
+### Installing Python dependencies within Docker
 
 ```
-# install dependency in Python
-$ docker run -it -v $(pwd)/services/webapp:/root/app python:2.7.13-alpine pip install --target=/root/app/site-packages --ignore-installed flask
+docker run -it -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip download -r requirements.txt --dest /root/app/pip-cache
+docker run -it -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip install -r requirements.txt --target /root/app-site-packages --no-index --find-links /root/app/pip-cache
 ```

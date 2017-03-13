@@ -10,3 +10,6 @@ npm-debug.log*
 
 node_modules/
 build/
+
+pip-cache/
+site-packages/

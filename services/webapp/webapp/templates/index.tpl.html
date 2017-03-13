@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>docker-compose-sync</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body class="container">
+    <h1>docker-compose-sync</h1>
+    <form>
+      <div class="form-group">
+        <label>User random text input</label>
+        <textarea id="user-input" class="form-control" rows="3"></textarea>
+        <small class="form-text text-muted">Enter any random text and watch it flow through our stack.</small>
+      </div>
+      <button id="send-btn" type="submit" class="btn btn-primary">Send</button>
+    </form>
+
+    <script type="text/javascript">
+      document.API_ENDPOINT = "{{ api_endpoint }}";
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
+  </body>
+</html>
