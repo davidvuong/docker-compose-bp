@@ -7,6 +7,18 @@ services:
       - "5000:5000"
     volumes:
       - ./services/webapp:/root/app
+    links:
+      - http_api
+  http_api:
+    build: ./services/http_api
+    env_file: ./environments/http_api.env.list
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./services/http_api:/root/app
+      - ~/.ivy2:/root/.ivy2
+      - ~/.sbt:/root/.sbt
+    command: [sbt, "~run"]
   # sqs:
   #   image: 'expert360/elasticmq:0.12.1'
   #   volumes:
