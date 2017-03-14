@@ -3,6 +3,7 @@ import sbt._
 object Depend {
 
   lazy val scalazVersion = "7.1.7"
+  lazy val http4sVersion = "0.14.10"
 
   lazy val scalaz = Seq(
     "org.scalaz" %% "scalaz-core"       % scalazVersion,
@@ -15,6 +16,12 @@ object Depend {
 
   lazy val argonaut = Seq(
     "io.argonaut" %% "argonaut" % "6.1"
+  )
+
+  lazy val http4s = Seq(
+    "org.http4s"     %% "http4s-dsl"          % http4sVersion,
+    "org.http4s"     %% "http4s-argonaut"     % http4sVersion,
+    "org.http4s"     %% "http4s-blaze-server" % http4sVersion
   )
 
   lazy val fs2sqs = Seq(
@@ -30,7 +37,7 @@ object Depend {
     scalaz ++
     pureconfig ++
     argonaut ++
-    galahad ++
+    http4s ++
     fs2sqs ++
     scalaTestCheck
 
