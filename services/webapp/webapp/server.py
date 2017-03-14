@@ -11,8 +11,14 @@ app = Flask('webapp')
 
 
 @app.route('/')
-def hello():
-    return render_template('index.tpl.html', api_endpoint=config.get('api_endpoint'))
+def index():
+    api_endpoint = 'http://%s:%s' % (config.get('host'), config.get('port'))
+    return render_template('index.tpl.html', api_endpoint=api_endpoint)
+
+
+@app.route('/send-message', methods=['POST'])
+def send_message():
+    return 'ok', 200
 
 
 if __name__ == '__main__':
