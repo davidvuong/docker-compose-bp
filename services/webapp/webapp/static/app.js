@@ -18,6 +18,7 @@
       }
     };
     ajax.open('POST', API_ENDPOINT + '/send-message');
+    ajax.setRequestHeader('Content-type', 'application/json');
     ajax.send(JSON.stringify({ message: message }));
 
     messageInput.value = '';
