@@ -1,11 +1,16 @@
 import sbt._
 
-lazy val buildSettings = Seq(
-  name                 := "http_api",
+lazy val projectName = "http_api"
+
+lazy val commonSettings = Seq(
   organization         := "me.davidvuong",
-  mainClass in Compile := Some("me.davidvuong.http_api.Boot"),
   version              := "0.0.1",
-  scalaVersion         := "2.11.8",
+  scalaVersion         := "2.11.8"
+)
+
+lazy val buildSettings = Seq(
+  name                 := projectName,
+  mainClass in Compile := Some("me.davidvuong.http_api.Boot"),
   scalacOptions        := Seq(
     "-unchecked",
     "-feature",
@@ -19,4 +24,6 @@ lazy val buildSettings = Seq(
   libraryDependencies  := Depend.dependencies
 )
 
-lazy val root = (project in file(".")).settings(buildSettings: _*)
+lazy val root = Project(projectName, file("."))
+  .settings(commonSettings: _*)
+  .settings(buildSettings: _*)

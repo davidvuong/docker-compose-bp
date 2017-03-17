@@ -6,8 +6,8 @@ object Depend {
   lazy val http4sVersion = "0.14.10"
 
   lazy val scalaz = Seq(
-    "org.scalaz" %% "scalaz-core"       % scalazVersion,
-    "org.scalaz" %% "scalaz-concurrent" % scalazVersion
+    "org.scalaz"         %% "scalaz-core"       % scalazVersion,
+    "org.scalaz"         %% "scalaz-concurrent" % scalazVersion
   )
 
   lazy val pureconfig = Seq(
@@ -15,7 +15,7 @@ object Depend {
   )
 
   lazy val argonaut = Seq(
-    "io.argonaut" %% "argonaut" % "6.1"
+    "io.argonaut"    %% "argonaut" % "6.1"
   )
 
   lazy val http4s = Seq(
@@ -42,8 +42,8 @@ object Depend {
     scalaTestCheck
 
   lazy val depResolvers = Seq(
-    "Scalaz Bintray Repo"                    at "http://dl.bintray.com/scalaz/releases",
-    "ImageIntelligence Bintray Repo"         at "http://dl.bintray.com/imageintelligence/maven",
+    "Scalaz Bintray Repo"             at "http://dl.bintray.com/scalaz/releases",
+    "ImageIntelligence Bintray Repo"  at "http://dl.bintray.com/imageintelligence/maven",
     Resolver.sonatypeRepo("releases")
   )
 }
