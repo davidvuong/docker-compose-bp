@@ -2,16 +2,16 @@
 
 **Welcome to docker-compose-sync!**
 
-This repository is an example project with multiple services demonstrating how to setup [docker-compose](https://docs.docker.com/compose/) and [docker-sync](http://docker-sync.io/). There are 6 services, each communicating via SQS and and reads/writes to a PostgreSQL database.
+This repository houses an example project that demonstrating how to setup [docker-compose](https://docs.docker.com/compose/) and [docker-sync](http://docker-sync.io/) in a microservices architecture. There are 6 services, each communicating via SQS and and reads/writes to a PostgreSQL database.
 
-The purpose of this project is to provide a development workflow that allows you to take advantage Docker. I want to show how to build/compile and install dependencies on the same environment across staging, production and an individual developer's local machine.
+The purpose of this project is to provide a development workflow that allows you to take advantage of some of the nicer properties Docker. I want to show how to build/compile and install dependencies on the same environment across staging, production and an individual developer's local machine.
 
 There are a few requirements:
 
 1. Development feedback cycle must be fast
 1. Applications must auto restart/compile when a chance occurs
-1. This to be able to run on my Macbook Pro
-1. Project needs to demonstrate on multiple programming languages
+1. My Macbook Pro cannot blow up when I run this project
+1. The Project needs to demonstrate using multiple programming languages
 
 ## Installation
 
