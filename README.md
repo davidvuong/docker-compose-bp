@@ -4,23 +4,39 @@
 
 This repository is meant to be an example project that demonstrates how to setup [docker-compose](https://docs.docker.com/compose/) and [docker-sync](http://docker-sync.io/), working with multiple "big" NodeJS projects. It also shows how these projects interface with a PostgreSQL server and intercommunicate via multiple mocked SQS queues.
 
-The main goal of this project is show what the development flow would be like using docker-compose to build and run your entire stack locally.
+The main goal of this project is show what the development flow would be like using docker-compose and docker-sync to build and run your entire stack locally whilst also having nice features such as auto-reloading/restarting/recompiling apps when a chance occurs.
 
 ## Installation
 
+Install docker and core dependencies:
+
 ```
-brew update
 brew install docker-compose
 brew install cask
 brew cask install docker
 brew cask install docker-toolbox
 ```
 
+Install docker-sync and related dependencies
+
+```
+gem install docker-sync
+pip install macfsevents
+brew install fswatch
+brew install unison
+```
+
 This project was only tested on a Mac however theoretically it should work on any platform that's supported by Docker.
 
 ## Running the project
 
-Start the containers:
+Start the docker-sync container:
+
+```
+docker-sync start
+```
+
+Start the service containers:
 
 ```
 docker-compose rm -f
@@ -39,7 +55,7 @@ Open the application:
 open http://localhost:8080
 ```
 
-## Project structure
+## Project structure and flow
 
 There are 6 separate services in used in this demonstration:
 
@@ -50,7 +66,7 @@ There are 6 separate services in used in this demonstration:
 1. A SQS worker (worker C) downstream for more message consumption (Rust)
 1. A SQS worker (worker D) downstream to store the message into a PostgreSQL database (Python)
 
-## Flow
+The flow is as follows:
 
 1. User requests for app from project, index.html is returned
 1. User enters text into text field and clicks "send" button
