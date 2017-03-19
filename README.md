@@ -35,20 +35,13 @@ brew install unison
 
 ## Running the project
 
-Start the docker-sync container (terminal 1):
+Start `docker-sync` and service cluster:
 
 ```
-docker-sync start
-```
-
-Start the service containers (terminal 2):
-
-```
+docker-sync start --daemon
 docker-compose rm -f
 docker-compose up --force-recreate
 ```
-
-Create the database (terminal 3):
 
 ```
 docker-compose run --rm db createdb my-db -h db -U postgres
