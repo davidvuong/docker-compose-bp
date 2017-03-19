@@ -4,6 +4,8 @@ Icon
 .idea/
 .vscode/
 
+.docker-sync/
+
 logs
 *.log
 npm-debug.log*
