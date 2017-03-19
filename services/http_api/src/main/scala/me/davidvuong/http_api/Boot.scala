@@ -11,7 +11,6 @@ import me.davidvuong.http_api.http.services.SendMessageHttpService
 import me.davidvuong.http_api.services.SendMessageService
 
 object Boot extends ServerApp {
-
   val config = Config.loadUnsafe
   val logger = getLogger
 
