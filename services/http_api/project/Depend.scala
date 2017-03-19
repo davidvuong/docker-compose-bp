@@ -6,8 +6,8 @@ object Depend {
   lazy val http4sVersion = "0.14.10"
 
   lazy val scalaz = Seq(
-    "org.scalaz"         %% "scalaz-core"       % scalazVersion,
-    "org.scalaz"         %% "scalaz-concurrent" % scalazVersion
+    "org.scalaz" %% "scalaz-core"       % scalazVersion,
+    "org.scalaz" %% "scalaz-concurrent" % scalazVersion
   )
 
   lazy val pureconfig = Seq(
@@ -15,17 +15,24 @@ object Depend {
   )
 
   lazy val argonaut = Seq(
-    "io.argonaut"    %% "argonaut" % "6.1"
+    "io.argonaut" %% "argonaut" % "6.1"
   )
 
   lazy val http4s = Seq(
-    "org.http4s"     %% "http4s-dsl"          % http4sVersion,
-    "org.http4s"     %% "http4s-argonaut"     % http4sVersion,
-    "org.http4s"     %% "http4s-blaze-server" % http4sVersion
+    "org.http4s" %% "http4s-dsl"          % http4sVersion,
+    "org.http4s" %% "http4s-argonaut"     % http4sVersion,
+    "org.http4s" %% "http4s-blaze-server" % http4sVersion
   )
 
   lazy val fs2sqs = Seq(
     "com.imageintelligence" %% "fs2-sqs" % "1.0.3"
+  )
+
+  lazy val logging = Seq(
+    "org.log4s"                %% "log4s"           % "1.3.0",
+    "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.7",
+    "org.apache.logging.log4j" % "log4j-core"       % "2.7",
+    "org.apache.logging.log4j" % "log4j-api"        % "2.7"
   )
 
   lazy val scalaTestCheck = Seq(
@@ -34,11 +41,12 @@ object Depend {
   )
 
   lazy val dependencies =
-    scalaz ++
+    scalaz     ++
     pureconfig ++
-    argonaut ++
-    http4s ++
-    fs2sqs ++
+    argonaut   ++
+    http4s     ++
+    fs2sqs     ++
+    logging    ++
     scalaTestCheck
 
   lazy val depResolvers = Seq(
