@@ -35,9 +35,6 @@ object SendMessageRequestDto {
     ))
   )
 
-  implicit def SendMessageRequestDtoEncodeJson: EncodeJson[SendMessageRequestDto] =
-    jencode3L((m: SendMessageRequestDto) => (m.message, m.clientId, m.webhookUrl))("message", "clientId", "webhookUrl")
-
-  implicit def SendMessageRequestDtoDecodeJson: DecodeJson[SendMessageRequestDto] =
-    jdecode3L(SendMessageRequestDto.apply)("message", "clientId", "webhookUrl")
+  implicit def SendMessageRequestDtoCodecJson: CodecJson[SendMessageRequestDto] =
+    casecodec3(SendMessageRequestDto.apply, SendMessageRequestDto.unapply)("message", "clientId", "webhookUrl")
 }
