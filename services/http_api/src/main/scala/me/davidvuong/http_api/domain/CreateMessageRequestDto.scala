@@ -8,13 +8,13 @@ import Argonaut._
 
 import scalaz._
 
-case class SendMessageRequestDto(
+case class CreateMessageRequestDto(
   message: String,
   clientId: UUID,
   webhookUrl: URL
 )
 
-object SendMessageRequestDto {
+object CreateMessageRequestDto{
   def eitherDecoder[A, B](history: CursorHistory, f: A => String \/ B): A => DecodeResult[B] = {
     f(_).fold(x => DecodeResult.fail[B](x, history), x => DecodeResult.ok(x))
   }
@@ -35,6 +35,6 @@ object SendMessageRequestDto {
     ))
   )
 
-  implicit def SendMessageRequestDtoCodecJson: CodecJson[SendMessageRequestDto] =
-    casecodec3(SendMessageRequestDto.apply, SendMessageRequestDto.unapply)("message", "clientId", "webhookUrl")
+  implicit def SendMessageRequestDtoCodecJson: CodecJson[CreateMessageRequestDto] =
+    casecodec3(CreateMessageRequestDto.apply, CreateMessageRequestDto.unapply)("message", "clientId", "webhookUrl")
 }
