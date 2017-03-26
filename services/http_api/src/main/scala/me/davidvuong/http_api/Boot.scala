@@ -7,20 +7,20 @@ import org.log4s._
 
 import scalaz.concurrent._
 import me.davidvuong.http_api.config.Config
-import me.davidvuong.http_api.http.services.SendMessageHttpService
-import me.davidvuong.http_api.services.SendMessageService
+import me.davidvuong.http_api.http.services.MessageHttpService
+import me.davidvuong.http_api.services.MessageService
+import org.http4s.HttpService
 
 object Boot extends ServerApp {
-
-  val config = Config.loadUnsafe
-  val logger = getLogger
+  val config: Config = Config.loadUnsafe
+  val logger: Logger = getLogger
 
   /* http services */
-  val sendMessageService = SendMessageService()
+  val messageService = MessageService
 
   /* http api */
-  val httpService = List(
-    SendMessageHttpService(sendMessageService).service
+  val httpService: HttpService = List(
+    MessageHttpService(messageService).service
   ).reduce(_ orElse _)
 
   def server(args: List[String]): Task[Server] = {

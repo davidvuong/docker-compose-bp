@@ -24,6 +24,10 @@ object Depend {
     "org.http4s" %% "http4s-blaze-server" % http4sVersion
   )
 
+  lazy val http4c = Seq(
+    "com.imageintelligence" %% "http4c" % "0.2.5"
+  )
+
   lazy val fs2sqs = Seq(
     "com.imageintelligence" %% "fs2-sqs" % "1.0.3"
   )
@@ -45,6 +49,7 @@ object Depend {
     pureconfig ++
     argonaut   ++
     http4s     ++
+    http4c     ++
     fs2sqs     ++
     logging    ++
     scalaTestCheck

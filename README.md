@@ -63,6 +63,23 @@ When the final SQS worker completes, the overall transformation is considered co
 
 ## Docker commands
 
+### Running database migrations
+
+The first time you run migrations (done once):
+
+```
+docker build --tag davidvuong/flyway:local db/
+```
+
+Afterwards, every subsequent time:
+
+```
+docker-compose up
+docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyway:local migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
+```
+
+NOTE: `--add-host db:192.168.1.8` use `ifconfig` to figure out your host IP (it will be different).
+
 ### Installing Python dependencies within Docker
 
 ```
