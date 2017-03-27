@@ -1,9 +1,10 @@
 import sbt._
 
 object Depend {
-
   lazy val scalazVersion = "7.1.7"
   lazy val http4sVersion = "0.14.10"
+  lazy val doobieVersion = "0.4.0"
+  lazy val log4jVersion  = "2.7"
 
   lazy val scalaz = Seq(
     "org.scalaz" %% "scalaz-core"       % scalazVersion,
@@ -28,15 +29,18 @@ object Depend {
     "com.imageintelligence" %% "http4c" % "0.2.5"
   )
 
-  lazy val fs2sqs = Seq(
-    "com.imageintelligence" %% "fs2-sqs" % "1.0.3"
+  lazy val doobie = Seq(
+    "org.tpolecat" %% "doobie-core"     % doobieVersion,
+    "org.tpolecat" %% "doobie-postgres" % doobieVersion,
+    "org.tpolecat" %% "doobie-hikari"   % doobieVersion,
+    "org.tpolecat" %% "doobie-specs2"   % doobieVersion
   )
 
   lazy val logging = Seq(
     "org.log4s"                %% "log4s"           % "1.3.0",
-    "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.7",
-    "org.apache.logging.log4j" % "log4j-core"       % "2.7",
-    "org.apache.logging.log4j" % "log4j-api"        % "2.7"
+    "org.apache.logging.log4j" % "log4j-slf4j-impl" % log4jVersion,
+    "org.apache.logging.log4j" % "log4j-core"       % log4jVersion,
+    "org.apache.logging.log4j" % "log4j-api"        % log4jVersion
   )
 
   lazy val scalaTestCheck = Seq(
@@ -44,19 +48,20 @@ object Depend {
     "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
   )
 
-  lazy val dependencies =
+  lazy val dependencies: Seq[ModuleID] =
     scalaz     ++
     pureconfig ++
     argonaut   ++
     http4s     ++
     http4c     ++
-    fs2sqs     ++
+    doobie     ++
     logging    ++
     scalaTestCheck
 
   lazy val depResolvers = Seq(
     "Scalaz Bintray Repo"             at "http://dl.bintray.com/scalaz/releases",
     "ImageIntelligence Bintray Repo"  at "http://dl.bintray.com/imageintelligence/maven",
+    "tpolecat"                        at "http://dl.bintray.com/tpolecat/maven",
     Resolver.sonatypeRepo("releases")
   )
 }

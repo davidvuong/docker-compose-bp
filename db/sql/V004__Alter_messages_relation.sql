@@ -1,0 +1,2 @@
+ALTER TABLE messages ADD COLUMN created_at TIMESTAMP NOT NULL;
+ALTER TABLE messages ADD COLUMN webhook_url TEXT NOT NULL;
