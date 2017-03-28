@@ -12,8 +12,6 @@ import scalaz.concurrent.Task
 case class MessageService(repo: Repository) {
   def createMessage(content: String, clientId: UUID, webhookUrl: URL): Task[\/[Throwable, Message]] = {
     val message = Message.initializeMessage(content, clientId, webhookUrl)
-    val dbOp = CreateMessageRepository.create(message)
-
-    repo.executeOp(dbOp)
+    CreateMessageRepository.create(message, repo)
   }
 }
