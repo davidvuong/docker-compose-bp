@@ -20,7 +20,7 @@ object Message {
       clientId   = clientId,
       webhookUrl = webhookUrl,
       content    = content,
-      status     = MessageStatus.InProgress(),
+      status     = MessageStatus.InProgress,
       createdAt  = Instant.now
     )
 }
