@@ -11,7 +11,7 @@ import scalaz._
 case class MessageHttpService(messageService: MessageService) {
   val service = HttpService {
     case req @ POST -> Root / "message" => req.decode[CreateMessageRequestDto] { m =>
-      messageService.createMessage(m.message, m.clientId, m.webhookUrl).unsafePerformSync match {
+      messageService.createMessage(m.message, m.clientId, m.webhookUrl).flatMap {
         case -\/(error) => BadRequest(error.toString)
         case _          => Ok()
       }
