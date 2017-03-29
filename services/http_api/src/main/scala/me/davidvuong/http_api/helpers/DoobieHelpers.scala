@@ -4,6 +4,7 @@ import java.net.{URL, URLDecoder}
 import java.time.Instant
 
 import doobie.imports._
+import me.davidvuong.http_api.domain.MessageStatus
 
 object DoobieHelpers {
   implicit val URLMeta: Meta[URL] =
@@ -16,5 +17,11 @@ object DoobieHelpers {
     Meta[java.sql.Timestamp].nxmap(
       i => i.toInstant,
       i => new java.sql.Timestamp(i.toEpochMilli)
+    )
+
+  implicit val MessageStatusMeta2: Meta[MessageStatus] =
+    Meta[String].nxmap(
+      i => MessageStatus.fromString(i).fold(sys.error, identity),
+      i => MessageStatus.toString(i)
     )
 }
