@@ -9,7 +9,10 @@
     <Root level="debug">
       <AppenderRef ref="STDOUT"/>
     </Root>
-    <Logger name="org.http4s.blaze" level="error" additivity="false">
+    <logger name="com.zaxxer.hikari" level="info" additivity="false">
+      <AppenderRef ref="STDOUT"/>
+    </logger>
+    <Logger name="org.http4s.blaze" level="info" additivity="false">
       <AppenderRef ref="STDOUT"/>
     </Logger>
     <Logger name="me.davidvuong" level="debug" additivity="false">
