@@ -42,6 +42,7 @@ object Boot extends ServerApp {
     BlazeBuilder
       .bindHttp(config.http.port, config.http.host)
       .mountService(httpService)
+      .withConnectorPoolSize(config.http.threadCount)
       .start
   }
 }
