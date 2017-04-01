@@ -9,4 +9,4 @@ RUN wget -O /flyway.tar.gz https://repo1.maven.org/maven2/org/flywaydb/flyway-co
     ln -s /flyway/flyway /usr/local/bin/flyway
 
 WORKDIR /flyway
-CMD ["flyway", "--help"]"
+CMD ["flyway", "--help"]
