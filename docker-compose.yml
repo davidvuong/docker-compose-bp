@@ -1,14 +1,14 @@
 version: '2'
 services:
-  #webapp:
-  #  build: ./services/webapp
-  #  env_file: ./environments/webapp.env.list
-  #  ports:
-  #    - "5000:5000"
-  #  volumes:
-  #    - ./services/webapp:/root/app
-  #  links:
-  #    - http_api
+  webapp:
+    build: ./services/webapp
+    env_file: ./environments/webapp.env.list
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./services/webapp:/root/app
+    links:
+      - http_api
   http_api:
     build: ./services/http_api
     env_file: ./environments/http_api.env.list
@@ -19,12 +19,12 @@ services:
       - ~/.ivy2:/root/.ivy2
       - ~/.sbt:/root/.sbt
     command: [sbt, "~re-start"]
-  # sqs:
-  #   image: 'expert360/elasticmq:0.12.1'
-  #   volumes:
-  #     - ./config/elasticmq.conf:/elasticmq/custom.conf
-  #   ports:
-  #     - '9324:9324'
+  sqs:
+    image: 'expert360/elasticmq:0.12.1'
+    volumes:
+      - ./config/elasticmq.conf:/elasticmq/custom.conf
+    ports:
+      - '9324:9324'
   db:
     image: "postgres:9.6.2"
     ports:
