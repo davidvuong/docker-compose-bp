@@ -11,7 +11,13 @@ case class DatabaseConfig(
   username: String,
   password: String
 )
-case class Config(http: HttpConfig, database: DatabaseConfig)
+case class SqsConfig(
+  url: String,
+  region: String,
+  accessKey: String,
+  secretKey: String
+)
+case class Config(http: HttpConfig, database: DatabaseConfig, sqs: SqsConfig)
 
 object Config {
   def load: Try[Config] =

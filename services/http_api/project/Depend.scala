@@ -36,6 +36,10 @@ object Depend {
     "org.tpolecat" %% "doobie-specs2"   % doobieVersion
   )
 
+  lazy val sqs = Seq(
+    "com.amazonaws" % "aws-java-sdk-sqs" % "1.11.111"
+  )
+
   lazy val logging = Seq(
     "org.log4s"                %% "log4s"           % "1.3.0",
     "org.apache.logging.log4j" % "log4j-slf4j-impl" % log4jVersion,
@@ -55,6 +59,7 @@ object Depend {
     http4s     ++
     http4c     ++
     doobie     ++
+    sqs        ++
     logging    ++
     scalaTestCheck
 

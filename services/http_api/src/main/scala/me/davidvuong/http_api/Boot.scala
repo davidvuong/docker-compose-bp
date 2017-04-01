@@ -13,11 +13,12 @@ import me.davidvuong.http_api.config.Config
 import me.davidvuong.http_api.http.services.MessageHttpService
 import me.davidvuong.http_api.repository.Repository
 import me.davidvuong.http_api.services.MessageService
+import me.davidvuong.http_api.utils.SqsQueueService
 
 object Boot extends ServerApp {
   /* general utility */
-  val config: Config = Config.loadUnsafe
   val logger: Logger = getLogger
+  val config: Config = Config.loadUnsafe
 
   /* database utility */
   val transactor: hikaritransactor.HikariTransactor[Task] =
@@ -28,6 +29,10 @@ object Boot extends ServerApp {
       config.database.password
     ).unsafePerformSync
 
+  /* sqs queue service */
+  val sqsQueueService = SqsQueueService(config.sqs)
+
+  /* database service */
   val repository: Repository = Repository(transactor)
 
   /* http services */
