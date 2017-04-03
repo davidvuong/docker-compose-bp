@@ -1,11 +1,11 @@
-package me.davidvuong.http_api.domain
+package me.davidvuong.http_api.domain.http
 
 import java.time.Instant
 import java.util.UUID
 
+import argonaut.Argonaut._
 import argonaut._
-import Argonaut._
-
+import me.davidvuong.http_api.domain.MessageStatus
 import me.davidvuong.http_api.helpers.ArgonautHelpers._
 
 case class CreateMessageResponseDto(

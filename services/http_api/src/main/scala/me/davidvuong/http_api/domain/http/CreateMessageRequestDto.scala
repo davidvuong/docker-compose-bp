@@ -1,11 +1,10 @@
-package me.davidvuong.http_api.domain
+package me.davidvuong.http_api.domain.http
 
 import java.net.URL
 import java.util.UUID
 
+import argonaut.Argonaut._
 import argonaut._
-import Argonaut._
-
 import me.davidvuong.http_api.helpers.ArgonautHelpers._
 
 case class CreateMessageRequestDto(
@@ -14,7 +13,7 @@ case class CreateMessageRequestDto(
   webhookUrl: URL
 )
 
-object CreateMessageRequestDto{
+object CreateMessageRequestDto {
   implicit def SendMessageRequestDtoCodecJson: CodecJson[CreateMessageRequestDto] =
     casecodec3(CreateMessageRequestDto.apply, CreateMessageRequestDto.unapply)("message", "clientId", "webhookUrl")
 }

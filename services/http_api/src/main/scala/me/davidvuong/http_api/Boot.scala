@@ -36,7 +36,7 @@ object Boot extends ServerApp {
   val repository: Repository = Repository(transactor)
 
   /* http services */
-  val messageService = MessageService(repository)
+  val messageService = MessageService(repository, sqsQueueService)
 
   /* http api */
   val httpService: HttpService = List(

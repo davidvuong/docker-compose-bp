@@ -9,7 +9,6 @@ import com.amazonaws.services.sqs.{AmazonSQSAsync, AmazonSQSAsyncClientBuilder}
 
 import scalaz._
 import scalaz.concurrent.Task
-
 import me.davidvuong.http_api.config.SqsConfig
 
 case class SqsQueueService(config: SqsConfig) {
