@@ -19,6 +19,10 @@ services:
       - ~/.ivy2:/root/.ivy2
       - ~/.sbt:/root/.sbt
     command: [sbt, "~re-start"]
+  bwt_transformer:
+    build: ./services/bwt_transformer
+    volumes:
+      - ./services/bwt_transformer:/go/src/app
   sqs:
     image: 'expert360/elasticmq:0.12.1'
     volumes:
