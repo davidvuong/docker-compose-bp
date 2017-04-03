@@ -118,3 +118,9 @@ docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.
 ```
 docker run --rm -v $(pwd)/services/http_api:/root/app -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -w /root/app imageintelligence/scala:latest sbt "compile"
 ```
+
+### Formatting your Go code within Docker
+
+```
+docker run -it --rm -v $(pwd)/services/bwt_transformer:/go/src golang:1.7.5-alpine3.5 gofmt -l -s -w /go/src
+```

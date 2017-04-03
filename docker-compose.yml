@@ -22,7 +22,7 @@ services:
   bwt_transformer:
     build: ./services/bwt_transformer
     volumes:
-      - ./services/bwt_transformer:/go/src/app
+      - ./services/bwt_transformer:/go/src
   sqs:
     image: 'expert360/elasticmq:0.12.1'
     volumes:
