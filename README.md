@@ -61,6 +61,32 @@ The flow is simple. A user requests for the app via a web browser. They enter so
 
 When the final SQS worker completes, the overall transformation is considered complete. For usability, the client also establishes and maintains a socket connection with the HTTP+Websocket server. Each time the API receives an update from a worker, the same information is also forwarded to the client, allowing the webapp show progresssion in realtime.
 
+## SQS debugging
+
+You can inspect SQS queues during runtime via boto3:
+
+```
+pip install boto3
+```
+
+Connect and ping the queue you want to inspect:
+
+```python
+import boto3
+
+# @see: http://boto3.readthedocs.io/en/latest/reference/services/sqs.html#client
+client = boto3.resource('sqs',
+    endpoint_url='http://localhost:9324',
+    region_name='elasticmq',
+    aws_secret_access_key='',
+    aws_access_key_id='',
+    use_ssl=False
+)
+
+queue = client.get_queue_by_name(QueueName='ingress-queue-1')
+print queue.url
+```
+
 ## Docker commands
 
 ### Running database migrations
