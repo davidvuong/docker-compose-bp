@@ -45,8 +45,24 @@ docker-compose rm -f
 docker-compose up --force-recreate
 ```
 
-```
+Create database and run migrations:
+
+```bash
 docker-compose run --rm db createdb my-db -h db -U postgres
+
+# Only necessary if first time building
+docker build --tag davidvuong/flyway:local db/
+
+# Every subsequent new database migration
+docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyway:local migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
+```
+
+**NOTE**: `--add-host db:192.168.1.8` use `ifconfig` to figure out your host IP (it will be different). Alternatively, use `socket` via Python:
+
+```python
+>>> import socket
+>>> socket.gethostbyname(socket.gethostname())
+'192.168.1.8'
 ```
 
 Open the application:
@@ -90,23 +106,6 @@ print queue.url
 ```
 
 ## Docker commands
-
-### Running database migrations
-
-The first time you run migrations (done once):
-
-```
-docker build --tag davidvuong/flyway:local db/
-```
-
-Afterwards, every subsequent time:
-
-```
-docker-compose up
-docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyway:local migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
-```
-
-NOTE: `--add-host db:192.168.1.8` use `ifconfig` to figure out your host IP (it will be different).
 
 ### Installing Python dependencies
 
