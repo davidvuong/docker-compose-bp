@@ -114,6 +114,14 @@ docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.
 docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip install -r requirements.txt --target /root/app-site-packages --no-index --find-links /root/app/pip-cache
 ```
 
+### Type checking your Python 3 code
+
+```
+docker exec pysorter mypy pysorter/ --ignore-missing-imports
+```
+
+Here I'm expecting `mypy` to be an installed dependency on the running container (pysorter).
+
 ### Installing Scala dependencies
 
 ```
