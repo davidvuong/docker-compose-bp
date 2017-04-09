@@ -11,7 +11,9 @@ There are a few requirements:
 1. Development feedback cycle must be fast
 1. Applications must auto restart/compile when a chance occurs
 1. My Macbook Pro cannot blow up when I run this project
-1. The Project needs to demonstrate using multiple programming languages
+1. The project needs to demonstrate using multiple programming languages
+1. Data must be persisted to some database (also in a container)
+1. Services must communicate between each other via HTTP or queue
 
 ## Installation
 
@@ -55,7 +57,7 @@ open http://localhost:8080
 
 ## Project structure and flow
 
-There are 6 separate services used in this demonstration. Each service uses a different language (python, scala, ruby, js, rust), all communicating either via HTTP or messages through SQS. There are 2 HTTP servers (WebSockets + API) and 4 SQS workers. You can see the source in `/services` for more details.
+There are 6 separate services used in this demonstration. Each service uses a different language (python, scala, ruby, js, rust, go), all communicating either via HTTP or messages through SQS. There are 2 HTTP servers (WebSockets + API) and 4 SQS workers. You can see the source in `/services` for more details.
 
 The flow is simple. A user requests for the app via a web browser. They enter some text, click the send button and a request is made to the API. The API creates a record in Postgres and forwards the user input as a message to a SQS worker downstream. It's then transformed by 4 separate SQS workers (each with a queue inbetween them). At each step, a request is made back to the API, updating the original record with each intermediate transformation.
 
