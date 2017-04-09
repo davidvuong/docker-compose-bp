@@ -106,20 +106,20 @@ docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyw
 
 NOTE: `--add-host db:192.168.1.8` use `ifconfig` to figure out your host IP (it will be different).
 
-### Installing Python dependencies within Docker
+### Installing Python dependencies
 
 ```
 docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip download -r requirements.txt --dest /root/app/pip-cache
 docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip install -r requirements.txt --target /root/app-site-packages --no-index --find-links /root/app/pip-cache
 ```
 
-### Installing Scala dependencies within Docker
+### Installing Scala dependencies
 
 ```
 docker run --rm -v $(pwd)/services/http_api:/root/app -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -w /root/app imageintelligence/scala:latest sbt "compile"
 ```
 
-### Formatting your Go code within Docker
+### Formatting your Go code
 
 ```
 docker run -it --rm -v $(pwd)/services/bwt_transformer:/go/src golang:1.7.5-alpine3.5 gofmt -l -s -w /go/src
