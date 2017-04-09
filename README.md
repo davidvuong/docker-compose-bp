@@ -125,9 +125,10 @@ docker run --rm -v $(pwd)/services/http_api:/root/app -v ~/.ivy2:/root/.ivy2 -v 
 docker run -it --rm -v $(pwd)/services/bwt_transformer:/go/src golang:1.7.5-alpine3.5 gofmt -l -s -w /go/src
 ```
 
-### Removing all images and containers
+### Purge all Docker artifacts (stop, rm, rmi)
 
 ```
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
-docker rm $(docker ps -a -q)dangling=true -q)
 ```
