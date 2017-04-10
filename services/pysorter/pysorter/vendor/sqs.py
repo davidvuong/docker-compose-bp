@@ -3,7 +3,7 @@ import json
 
 from typing import Callable, Union, Dict
 
-import boto3  # type: ignore
+import boto3
 
 from ..domain.aws import AwsAuthentication, SqsConfig
 from ..domain.messaging import EgressMessage

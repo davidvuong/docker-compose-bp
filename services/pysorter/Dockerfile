@@ -14,4 +14,4 @@ RUN mkdir $APP_SITE_PACKAGES && mkdir $APP_PIP_CACHE && \
   --target=$APP_SITE_PACKAGES \
   --find-links=$APP_PIP_CACHE && \
   pip install mypy pep8
-CMD python pysorter/pysorter.py
+CMD python main.py
