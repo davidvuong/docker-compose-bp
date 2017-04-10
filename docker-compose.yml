@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 services:
   webapp:
     container_name: webapp
@@ -26,13 +26,18 @@ services:
     build: ./services/bwt_transformer
     volumes:
       - ./services/bwt_transformer:/go/src
+  pysorter:
+    container_name: pysorter
+    build: ./services/pysorter
+    volumes:
+      - ./services/pysorter:/root/app
   sqs:
     container_name: sqs
-    image: 'expert360/elasticmq:0.12.1'
+    image: "expert360/elasticmq:0.12.1"
     volumes:
       - ./config/elasticmq.conf:/elasticmq/custom.conf
     ports:
-      - '9324:9324'
+      - "9324:9324"
   db:
     container_name: db
     image: "postgres:9.6.2"
