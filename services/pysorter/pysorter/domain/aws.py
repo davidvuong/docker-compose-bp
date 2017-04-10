@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from typing import Tuple, Dict
 
 
 class AwsAuthentication:
@@ -14,13 +13,3 @@ class SqsConfig:
         self.port = port
         self.region = region
         self.use_ssl = use_ssl
-
-
-class IngressMessage:
-    def to_dict(self) -> Dict:
-        pass
-
-
-class EgressMessage:
-    def to_dict(self) -> Dict:
-        pass

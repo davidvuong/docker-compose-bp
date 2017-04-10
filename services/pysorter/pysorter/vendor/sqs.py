@@ -5,14 +5,15 @@ from typing import Callable, Union, Dict
 
 import boto3  # type: ignore
 
-from .domain import AwsAuthentication, SqsConfig
-from .domain import EgressMessage
+from ..domain.aws import AwsAuthentication, SqsConfig
+from ..domain.messaging import EgressMessage
 
 SendMessageHandler = Callable[[Union[Exception, Dict]], None]
 
 
 def connect(config: SqsConfig, auth: AwsAuthentication):
-    return boto3.resource('sqs',
+    return boto3.resource(
+        'sqs',
         endpoint_url=config.endpoint_url,
         region_name=config.region,
         aws_secret_access_key=auth.secret_key,
