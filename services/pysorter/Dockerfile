@@ -13,5 +13,5 @@ RUN mkdir $APP_SITE_PACKAGES && mkdir $APP_PIP_CACHE && \
   pip install -r requirements.txt \
   --target=$APP_SITE_PACKAGES \
   --find-links=$APP_PIP_CACHE && \
-  pip install mypy
+  pip install mypy pep8
 CMD python pysorter/pysorter.py
