@@ -19,7 +19,7 @@ There are a few requirements:
 
 Install docker and core dependencies:
 
-```
+```bash
 brew install docker-compose
 brew install cask
 brew cask install docker
@@ -28,7 +28,7 @@ brew cask install docker-toolbox
 
 Install docker-sync and related dependencies
 
-```
+```bash
 gem install docker-sync
 pip install macfsevents
 brew install fswatch
@@ -39,10 +39,9 @@ brew install unison
 
 Start `docker-sync` and service cluster:
 
-```
+```bash
 docker-sync start --daemon
-docker-compose rm -f
-docker-compose up --force-recreate
+docker-compose up --force-recreate --build
 ```
 
 Create database and run migrations:
@@ -67,7 +66,7 @@ docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyw
 
 Open the application:
 
-```
+```bash
 open http://localhost:8080
 ```
 
@@ -79,11 +78,11 @@ The flow is simple. A user requests for the app via a web browser. They enter so
 
 When the final SQS worker completes, the overall transformation is considered complete. For usability, the client also establishes and maintains a socket connection with the HTTP+Websocket server. Each time the API receives an update from a worker, the same information is also forwarded to the client, allowing the webapp show progresssion in realtime.
 
-## SQS debugging
+## Debuggin SQS queues
 
 You can inspect SQS queues during runtime via boto3:
 
-```
+```bash
 pip install boto3
 ```
 
@@ -105,45 +104,54 @@ queue = client.get_queue_by_name(QueueName='ingress-queue-1')
 print queue.url
 ```
 
-## Docker commands
+## Generic Docker commands
 
-### Installing Python dependencies
+#### Purge all service containers and rebuild
 
+```bash
+docker-compose rm -f
+docker-compose up --force-recreate --build
 ```
+
+#### Purge **all** Docker artifacts (stop, rm, rmi)
+
+```bash
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q)
+```
+
+## Service specific Docker commands
+
+#### Installing Python dependencies
+
+```bash
 docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip download -r requirements.txt --dest /root/app/pip-cache
 docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip install -r requirements.txt --target /root/app-site-packages --no-index --find-links /root/app/pip-cache
 ```
 
-### Type checking your Python 3 code
+#### Type checking your Python 3 code
 
-```
+```bash
 docker exec <container_name> mypy --follow-imports=skip <package_name>/
 ```
 
-### PEP8 your Python code
+#### PEP8 your Python code
 
-```
+```bash
 docker exec <container_name> pep8 --ignore=E501,E701 <package_name>/
 ```
 
 For both `mypy` and `pep8`, I'm expecting them to already be installed in the container.
 
-### Installing Scala dependencies
+#### Installing Scala dependencies
 
-```
+```bash
 docker run --rm -v $(pwd)/services/http_api:/root/app -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -w /root/app imageintelligence/scala:latest sbt "compile"
 ```
 
-### Formatting your Go code
+#### Formatting your Go code
 
-```
+```bash
 docker run -it --rm -v $(pwd)/services/bwt_transformer:/go/src golang:1.7.5-alpine3.5 gofmt -l -s -w /go/src
-```
-
-### Purge all Docker artifacts (stop, rm, rmi)
-
-```
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-docker rmi $(docker images -q)
 ```
