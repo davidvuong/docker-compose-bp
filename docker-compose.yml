@@ -29,8 +29,12 @@ services:
   pysorter:
     container_name: pysorter
     build: ./services/pysorter
+    env_file: ./environments/pysorter.env.list
     volumes:
       - ./services/pysorter:/root/app
+    links:
+      - sqs
+      - http_api
   sqs:
     container_name: sqs
     image: "expert360/elasticmq:0.12.1"
