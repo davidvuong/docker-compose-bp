@@ -120,6 +120,12 @@ docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.
 docker exec pysorter mypy pysorter/ --ignore-missing-imports
 ```
 
+### PEP8 your Python code
+
+```
+docker exec pysorter pep8 pysorter/
+```
+
 Here I'm expecting `mypy` to be an installed dependency on the running container (pysorter).
 
 ### Installing Scala dependencies
