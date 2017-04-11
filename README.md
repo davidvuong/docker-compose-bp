@@ -80,7 +80,7 @@ When the final SQS worker completes, the overall transformation is considered co
 
 ## Debuggin SQS queues
 
-You can inspect SQS queues during runtime via boto3:
+You can inspect SQS queues during runtime via boto3 (on your host):
 
 ```bash
 pip install boto3
@@ -89,10 +89,11 @@ pip install boto3
 Connect and ping the queue you want to inspect:
 
 ```python
+import json
 import boto3
 
 # @see: http://boto3.readthedocs.io/en/latest/reference/services/sqs.html#client
-client = boto3.resource('sqs',
+client = boto3.client('sqs',
     endpoint_url='http://localhost:9324',
     region_name='elasticmq',
     aws_secret_access_key='',
@@ -100,8 +101,12 @@ client = boto3.resource('sqs',
     use_ssl=False
 )
 
-queue = client.get_queue_by_name(QueueName='ingress-queue-1')
-print queue.url
+# @note: list all queues, purge a queue, and send a message to a queue:
+sqs_queues = client.list_queues()
+
+queue_url = sqs_queues['QueueUrls'][0]
+client.purge_queue(QueueUrl=queue_url)
+client.send_message(QueueUrl=queue_url, MessageBody=json.dumps({'data': 'my message body'}))
 ```
 
 ## Generic Docker commands
@@ -113,12 +118,18 @@ docker-compose rm -f
 docker-compose up --force-recreate --build
 ```
 
-#### Purge **all** Docker artifacts (stop, rm, rmi)
+#### Purge _all_ Docker artifacts (stop, rm, rmi)
 
 ```bash
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
+```
+
+#### Run a specific service and its dependencies
+
+```bash
+docker-compose run --rm --service-ports --name <service>_run <service>
 ```
 
 ## Service specific Docker commands
