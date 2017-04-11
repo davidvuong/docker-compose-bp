@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 import json
 
-from typing import Callable, Union, Dict
+from typing import Optional, Dict
 
 import boto3
 
 from ..domain.aws import AwsAuthentication, SqsConfig
-from ..domain.messaging import EgressMessage
-
-SendMessageHandler = Callable[[Union[Exception, Dict]], None]
+from ..domain.messaging import EgressMessage, IngressMessage
 
 
 def connect(config: SqsConfig, auth: AwsAuthentication):
-    return boto3.resource(
+    return boto3.client(
         'sqs',
         endpoint_url=config.endpoint_url,
         region_name=config.region,
@@ -22,22 +20,22 @@ def connect(config: SqsConfig, auth: AwsAuthentication):
     )
 
 
-def send_message(client, queue_url: str, message: EgressMessage) -> None:
+def send_message(client, queue_url: str, message: EgressMessage) -> Dict:
     return client.send_message(
         QueueUrl=queue_url,
         MessageBody=json.dumps(message.to_dict())
     )
 
 
-def receive_message(client, queue_url: str, handler: SendMessageHandler) -> None:
-    while True:
-        try:
-            response = client.receive_message(
-                QueueUrl=queue_url,
-                WaitTimeSeconds=10,
-                VisibilityTimeout=60,
-                MaxNumberOfMessages=10
-            )
-        except Exception as exception:
-            response = exception
-        handler(response)
+def receive_message(client, queue_url: str) -> Optional[IngressMessage]:
+    message: Dict = client.receive_message(
+        QueueUrl=queue_url,
+        WaitTimeSeconds=10,
+        VisibilityTimeout=60,
+        MaxNumberOfMessages=10
+    )
+    if 'Messages' not in message:
+        return None
+
+    body: Dict = json.loads(message['Messages'][0]['Body'])  # always a single message.
+    return IngressMessage(body['id'], body['content'], created_at=int(body['createdAt']))
