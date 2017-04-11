@@ -1,8 +1,8 @@
-# docker-compose-sync
+# docker-compose-bp
 
-**Welcome to docker-compose-sync!**
+**Welcome to docker-compose-bp!**
 
-This repository houses an example project that demonstrates how to setup [docker-compose](https://docs.docker.com/compose/) and [docker-sync](http://docker-sync.io/) in a microservices architecture. There are 6 services, each communicating via SQS and reads/writes to a PostgreSQL database.
+This repository is meant to be an example and somewhat boilerplate that aims to demonstrate how to configure and run your docker containers locally via [docker-compose](https://docs.docker.com/compose/).
 
 The purpose of this project is to provide a development workflow that allows you to take advantage of some of the nicer properties of Docker. I want to show how to build/compile and install dependencies on the same environment across develop, staging, production, and on an individual developer's local machine.
 
@@ -10,7 +10,7 @@ There are a few requirements:
 
 1. Development feedback cycle must be fast
 1. Applications must auto restart/compile when a chance occurs
-1. My Macbook Pro cannot blow up when I run this project
+1. My Macbook cannot blow up when I run this project
 1. The project needs to demonstrate using multiple programming languages
 1. Data must be persisted to some database (also in a container)
 1. Services must communicate between each other via HTTP or queue
@@ -26,21 +26,11 @@ brew cask install docker
 brew cask install docker-toolbox
 ```
 
-Install docker-sync and related dependencies
-
-```bash
-gem install docker-sync
-pip install macfsevents
-brew install fswatch
-brew install unison
-```
-
 ## Running the project
 
-Start `docker-sync` and service cluster:
+Start the service cluster via `docker-compose up`:
 
 ```bash
-docker-sync start --daemon
 docker-compose up --force-recreate --build
 ```
 
@@ -56,7 +46,7 @@ docker build --tag davidvuong/flyway:local db/
 docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyway:local flyway migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
 ```
 
-**NOTE**: `--add-host db:192.168.1.8` use `ifconfig` to figure out your host IP (it will be different). Alternatively, use `socket` via Python:
+**NOTE**: `--add-host db:192.168.1.8` (your host IP will most likely be different). You can get your host IP via `socket.gethostname()` in Python:
 
 ```python
 >>> import socket
@@ -109,7 +99,7 @@ client.purge_queue(QueueUrl=queue_url)
 client.send_message(QueueUrl=queue_url, MessageBody=json.dumps({'data': 'my message body'}))
 ```
 
-## Generic Docker commands
+## Generic Docker/Docker Compose commands
 
 #### Purge all service containers and rebuild
 
@@ -153,7 +143,7 @@ docker exec <container_name> mypy --follow-imports=skip <package_name>/
 docker exec <container_name> pep8 --ignore=E501,E701 <package_name>/
 ```
 
-For both `mypy` and `pep8`, I'm expecting them to already be installed in the container.
+Both `mypy` and `pep8` are expected to already be installed in the container.
 
 #### Installing Scala dependencies
 

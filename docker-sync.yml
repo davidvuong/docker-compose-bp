@@ -1,8 +1,0 @@
-version: "2"
-syncs:
-  webapp-sync:
-    src: ./services/webapp
-    dest: /root/app
-  http_api-sync:
-    src: ./services/http_api
-    dest: /root/app
