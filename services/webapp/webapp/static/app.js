@@ -1,6 +1,4 @@
 (function () {
-  var API_ENDPOINT = document.API_ENDPOINT;
-
   document.getElementById('send-btn').addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -17,7 +15,7 @@
         console.log(this.response);
       }
     };
-    ajax.open('POST', API_ENDPOINT + '/send-message');
+    ajax.open('POST', window.location.origin + '/send-message');
     ajax.setRequestHeader('Content-type', 'application/json');
     ajax.send(JSON.stringify({ message: message }));
 

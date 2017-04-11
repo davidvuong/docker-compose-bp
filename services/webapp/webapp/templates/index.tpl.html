@@ -3,10 +3,10 @@
   <head>
     <title>docker-compose-sync</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   </head>
   <body class="container">
-    <h1>docker-compose-sync</h1>
+    <h1>docker-compose-bp</h1>
     <form>
       <div class="form-group">
         <label>User random text input</label>
@@ -15,10 +15,6 @@
       </div>
       <button id="send-btn" type="submit" class="btn btn-primary">Send</button>
     </form>
-
-    <script type="text/javascript">
-      document.API_ENDPOINT = "{{ api_endpoint }}";
-    </script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
   </body>
 </html>
