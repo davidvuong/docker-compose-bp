@@ -10,7 +10,7 @@ There are a few requirements:
 
 1. Development feedback cycle must be fast
 1. Applications must auto restart/compile when a chance occurs
-1. My Macbook cannot blow up when I run this project
+1. My MacBook cannot blow up when I run this project
 1. The project needs to demonstrate using multiple programming languages
 1. Data must be persisted to some database (also in a container)
 1. Services must communicate between each other via HTTP or queue
@@ -68,7 +68,7 @@ The flow is simple. A user requests for the app via a web browser. They enter so
 
 When the final SQS worker completes, the overall transformation is considered complete. For usability, the client also establishes and maintains a socket connection with the HTTP+Websocket server. Each time the API receives an update from a worker, the same information is also forwarded to the client, allowing the webapp show progresssion in realtime.
 
-## Debuggin SQS queues
+## Debugging SQS queues
 
 You can inspect SQS queues during runtime via boto3 (on your host):
 
@@ -100,6 +100,12 @@ client.send_message(QueueUrl=queue_url, MessageBody=json.dumps({'data': 'my mess
 ```
 
 ## Generic Docker/Docker Compose commands
+
+You might find that typing `docker-compose` all the time is a little tedious. I alias `docker-compose`:
+
+```bash
+$ alias doc=$(which docker-compose)
+```
 
 #### Purge all service containers and rebuild
 
