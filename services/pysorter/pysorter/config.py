@@ -13,7 +13,7 @@ class Config:
         self.sqs_config = sqs_config
 
 
-def _load_unsafe() -> Dict[str, Union[str, bool]]:
+def _load_unsafe() -> Dict[str, Union[str, bool, int]]:
     return {
         'aws_access_key': os.environ['AWS_ACCESS_KEY'],
         'aws_secret_key': os.environ['AWS_SECRET_KEY'],
