@@ -140,13 +140,13 @@ docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.
 #### Type checking your Python 3 code
 
 ```bash
-docker exec <container_name> mypy --follow-imports=skip <package_name>/
+docker-compose run --rm <python-service> mypy --follow-imports=skip .
 ```
 
 #### PEP8 your Python code
 
 ```bash
-docker exec <container_name> pep8 --ignore=E501,E701 <package_name>/
+docker-compose run --rm <python-service> pep8 --ignore=E501,E701 .
 ```
 
 Both `mypy` and `pep8` are expected to already be installed in the container.
@@ -154,11 +154,11 @@ Both `mypy` and `pep8` are expected to already be installed in the container.
 #### Installing Scala dependencies
 
 ```bash
-docker run --rm -v $(pwd)/services/http_api:/root/app -v ~/.ivy2:/root/.ivy2 -v ~/.sbt:/root/.sbt -w /root/app imageintelligence/scala:latest sbt "compile"
+docker-compose run --rm <scala-service> sbt "compile"
 ```
 
 #### Formatting your Go code
 
 ```bash
-docker run -it --rm -v $(pwd)/services/bwt_transformer:/go/src golang:1.7.5-alpine3.5 gofmt -l -s -w /go/src
+docker-compose run --rm <golang-service> gofmt -l -s -w /go/src
 ```
