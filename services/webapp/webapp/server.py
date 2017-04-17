@@ -1,27 +1,23 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
 import logging
 import json
 
+from functools import partial
+
 from flask import Flask
 from flask import render_template
 from flask import request
 
-from webapp.config import Config
 
-app = Flask('webapp')
-
-
-@app.route('/')
-def index():
-    api_endpoint = 'http://%s:%s' % (config.get('host'), config.get('port'))
+def index(config):
+    server_config = config.server_config
+    api_endpoint = 'http://%s:%s' % (server_config.host, server_config.port)
     return render_template('index.tpl.html', api_endpoint=api_endpoint)
 
 
-@app.route('/send-message', methods=['POST'])
-def send_message():
+def send_message(config):
     try:
         request_payload = json.loads(request.data)
     except (ValueError, TypeError) as e:
@@ -35,12 +31,14 @@ def send_message():
     return 'ok', 200
 
 
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+def init(config):
+    app = Flask('webapp')
 
-    config = Config()
-    app.run(
-        host=config.get('host'),
-        port=config.get('port'),
-        debug=True if config.get('environment') != 'production' else False
+    app.add_url_rule('/', 'index', partial(index, config), methods=['GET'])
+    app.add_url_rule(
+        '/send-message',
+        'send_message',
+        partial(send_message, config),
+        methods=['POST']
     )
+    return app

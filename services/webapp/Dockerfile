@@ -12,4 +12,4 @@ RUN mkdir $APP_SITE_PACKAGES && mkdir $APP_PIP_CACHE && \
   pip install -r requirements.txt \
   --target=$APP_SITE_PACKAGES \
   --find-links=$APP_PIP_CACHE
-CMD python webapp/server.py
+CMD python main.py
