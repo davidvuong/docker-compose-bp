@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import socket
 
 from .domain.config import ServerConfig, ApiConfig
 
@@ -15,6 +16,7 @@ def _load_unsafe():
     return {
         'port': int(os.environ.get('PORT')),
         'host': os.environ.get('HOST'),
+        'host_ip': socket.gethostbyname(socket.gethostname()),
         'environment': os.environ.get('ENVIRONMENT'),
         'api_endpoint': os.environ['API_ENDPOINT'],
     }
@@ -24,6 +26,10 @@ def load():
     env = _load_unsafe()
     return Config(
         env['environment'],
-        ServerConfig(env['host'], env['port']),
+        ServerConfig(
+            env['host'],
+            env['port'],
+            env['host_ip']
+        ),
         ApiConfig(env['api_endpoint']),
     )
