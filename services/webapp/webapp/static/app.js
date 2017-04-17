@@ -17,7 +17,7 @@
     };
     ajax.open('POST', window.location.origin + '/send-message');
     ajax.setRequestHeader('Content-type', 'application/json');
-    ajax.send(JSON.stringify({ message: message }));
+    ajax.send(JSON.stringify({ message: message.trim() }));
 
     messageInput.value = '';
     return true;
