@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import logging
 import json
+import httplib
 
 from functools import partial
 
@@ -21,14 +22,14 @@ def send_message(config):
     try:
         request_payload = json.loads(request.data)
     except (ValueError, TypeError) as e:
-        return 'invalid json request payload', 400
+        return 'invalid json request payload', httplib.BAD_REQUEST
 
     message = request_payload.get('message')
     if message is None:
-        return 'message missing from request payload', 400
+        return 'message missing from request payload', httplib.BAD_REQUEST
 
     logging.info('received message from client, message=%s', message)
-    return 'ok', 200
+    return '', httplib.OK
 
 
 def init(config):
