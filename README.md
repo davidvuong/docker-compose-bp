@@ -40,10 +40,10 @@ Create database and run migrations:
 docker-compose run --rm db createdb my-db -h db -U postgres
 
 # Only necessary if first time building
-docker build --tag davidvuong/flyway:local db/
+docker build --tag davidvuong/flyway:local flyway/
 
 # Every subsequent new database migration
-docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyway:local flyway migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
+docker run --rm --add-host db:192.168.1.8 -v $(pwd)/flyway/:/root/db davidvuong/flyway:local flyway migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
 ```
 
 **NOTE**: `--add-host db:192.168.1.8` (your host IP will most likely be different). You can get your host IP via `socket.gethostname()` in Python:
@@ -57,7 +57,7 @@ docker run --rm --add-host db:192.168.1.8 -v $(pwd)/db/:/root/db davidvuong/flyw
 Open the application:
 
 ```bash
-open http://localhost:8080
+open http://localhost:5000
 ```
 
 ## Project structure and flow
