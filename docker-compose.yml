@@ -40,7 +40,7 @@ services:
     container_name: sqs
     image: "expert360/elasticmq:0.12.1"
     volumes:
-      - ./config/elasticmq.conf:/elasticmq/custom.conf
+      - ./elasticmq/elasticmq.conf:/elasticmq/custom.conf
     ports:
       - "9324:9324"
   db:
