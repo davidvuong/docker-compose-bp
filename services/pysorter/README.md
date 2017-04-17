@@ -14,10 +14,16 @@ $ mkvirtualenv -p /usr/local/bin/python3 pysorter
 
 *(note: I'm using Python 3.6.1)*
 
+Install dependencies:
+
+```bash
+$ pip install -r requirements.txt
+```
+
 Run the worker queue:
 
 ```bash
-$ python pysorter/pysorter.py
+$ python main.py
 ```
 
 Run the worker queue inside a container, managed by docker-compose:
