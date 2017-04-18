@@ -37,21 +37,15 @@ docker-compose up --force-recreate --build
 Create database and run migrations:
 
 ```bash
-docker-compose run --rm db createdb my-db -h db -U postgres
+docker-compose run --rm db createdb webapp -h db -U postgres
+docker-compose run --rm db createdb api -h db -U postgres
 
 # Only necessary if first time building
 docker build --tag davidvuong/flyway:local flyway/
 
 # Every subsequent new database migration
-docker run --rm --add-host db:192.168.1.8 -v $(pwd)/flyway/:/root/db davidvuong/flyway:local flyway migrate -user=postgres -password= -url=jdbc:postgresql://db:5432/my-db -locations=filesystem:/root/db/sql
-```
-
-**NOTE**: `--add-host db:192.168.1.8` (your host IP will most likely be different). You can get your host IP via `socket.gethostname()` in Python:
-
-```python
->>> import socket
->>> socket.gethostbyname(socket.gethostname())
-'192.168.1.8'
+bash ./scripts/migrate_db $(./scripts/get_host_ip.py) api
+bash ./scripts/migrate_db $(./scripts/get_host_ip.py) webapp
 ```
 
 Open the application:
