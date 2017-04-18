@@ -22,7 +22,7 @@ Response {
 ```
 
 ```
-POST /webhook/receve-message {
+POST /webhook/receive-message {
   "originalMessage": "plain_text",
   "transformedMessage": "transformed plain_text",
   "correlationId": "uuid",
