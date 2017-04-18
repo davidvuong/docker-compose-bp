@@ -46,6 +46,9 @@ docker build --tag davidvuong/flyway:local flyway/
 # Every subsequent new database migration
 bash ./scripts/migrate_db $(./scripts/get_host_ip.py) api
 bash ./scripts/migrate_db $(./scripts/get_host_ip.py) webapp
+
+# Inspect your database via psql
+docker-compose run --rm db psql -h db -U postgres
 ```
 
 Open the application:
