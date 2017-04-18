@@ -10,6 +10,7 @@ services:
     volumes:
       - ./services/webapp:/root/app
     links:
+      - db
       - http_api
   http_api:
     container_name: http_api
