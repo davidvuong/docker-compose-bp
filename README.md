@@ -8,12 +8,10 @@ The purpose of this project is to provide a development workflow that allows you
 
 There are a few requirements:
 
-1. Development feedback cycle must be fast
-1. Applications must auto restart/compile when a chance occurs
-1. My MacBook cannot blow up when I run this project
-1. The project needs to demonstrate using multiple programming languages
-1. Data must be persisted to some database (also in a container)
-1. Services must communicate between each other via HTTP or queue
+1. Development feedback cycle must be fast (auto restart/compile on change/save)
+1. A variety of languages used for each service
+1. Data persistence layer (also as a container)
+1. Communication between services via an in-memory queue
 
 ## Installation
 
@@ -26,12 +24,18 @@ brew cask install docker
 brew cask install docker-toolbox
 ```
 
-## Running the project
-
-Start the service cluster via `docker-compose up`:
+Alias the docker-compose command (optional):
 
 ```bash
-docker-compose up --force-recreate --build
+alias dc=$(which docker-compose)
+```
+
+## Running the project
+
+Start all services in our cluster:
+
+```bash
+docker-compose up -d --force-recreate --build
 ```
 
 Create database and run migrations:
@@ -55,6 +59,12 @@ Open the application:
 
 ```bash
 open http://localhost:5000
+```
+
+Remove all traces of our cluster (excluding images):
+
+```
+docker-compose down
 ```
 
 ## Project structure and flow
@@ -96,66 +106,6 @@ client.purge_queue(QueueUrl=queue_url)
 client.send_message(QueueUrl=queue_url, MessageBody=json.dumps({'data': 'my message body'}))
 ```
 
-## Generic Docker/Docker Compose commands
+## Useful Docker/Docker Compose commands
 
-You might find that typing `docker-compose` all the time is a little tedious. I alias `docker-compose`:
-
-```bash
-$ alias doc=$(which docker-compose)
-```
-
-#### Purge all service containers and rebuild
-
-```bash
-docker-compose rm -f
-docker-compose up --force-recreate --build
-```
-
-#### Purge _all_ Docker artifacts (stop, rm, rmi)
-
-```bash
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-docker rmi $(docker images -q)
-```
-
-#### Run a specific service and its dependencies
-
-```bash
-docker-compose run --rm --service-ports --name <service>_run <service>
-```
-
-## Service specific Docker commands
-
-#### Installing Python dependencies
-
-```bash
-docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip download -r requirements.txt --dest /root/app/pip-cache
-docker run -it --rm -v $(pwd)/services/webapp:/root/app -w /root/app python:2.7.13-alpine pip install -r requirements.txt --target /root/app-site-packages --no-index --find-links /root/app/pip-cache
-```
-
-#### Type checking your Python 3 code
-
-```bash
-docker-compose run --rm <python-service> mypy --follow-imports=skip .
-```
-
-#### PEP8 your Python code
-
-```bash
-docker-compose run --rm <python-service> pep8 --ignore=E501,E701 .
-```
-
-Both `mypy` and `pep8` are expected to already be installed in the container.
-
-#### Installing Scala dependencies
-
-```bash
-docker-compose run --rm <scala-service> sbt "compile"
-```
-
-#### Formatting your Go code
-
-```bash
-docker-compose run --rm <golang-service> gofmt -l -s -w /go/src
-```
+[Here](./docs/docker-compose-cheatsheet.md) are some of a few useful commands I found myself using a lot during the development of this project.
