@@ -6,7 +6,7 @@ This repository is meant to be an example and somewhat boilerplate that aims to 
 
 The purpose of this project is to provide a development workflow that allows you to take advantage of some of the nicer properties of Docker. I want to show how to build/compile and install dependencies on the same environment across develop, staging, production, and on an individual developer's local machine.
 
-There are a few requirements:
+**There are a few requirements:**
 
 1. Development feedback cycle must be fast (auto restart/compile on change/save)
 1. A variety of languages used for each service
