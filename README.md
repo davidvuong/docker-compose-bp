@@ -75,6 +75,12 @@ The flow is simple. A user requests for the app via a web browser. They enter so
 
 When the final SQS worker completes, the overall transformation is considered complete. For usability, the client also establishes and maintains a socket connection with the HTTP+Websocket server. Each time the API receives an update from a worker, the same information is also forwarded to the client, allowing the webapp show progresssion in realtime.
 
+You can read the service READMEs for more information:
+
+* [service/http_api](./services/http_api/README.md) (HTTP API)
+* [service/webapp](./services/webapp/README.md) (WebApp + Web Sockets)
+* [service/pysorter](./services/pysorter/README.md) (Worker)
+
 ## Debugging SQS queues
 
 You can inspect SQS queues during runtime via boto3 (on your host):
