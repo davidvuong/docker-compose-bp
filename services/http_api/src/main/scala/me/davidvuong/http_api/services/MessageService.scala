@@ -15,8 +15,8 @@ import me.davidvuong.http_api.repository.{CreateMessageRepository, Repository}
 import me.davidvuong.http_api.utils.SqsQueueService
 
 case class MessageService(repo: Repository, queue: SqsQueueService) {
-  def createMessage(content: String, clientId: UUID, webhookUrl: URL): Task[\/[Throwable, Message]] = {
-    val stagedMessage = Message.initializeMessage(content, clientId, webhookUrl)
+  def createMessage(content: String, correlationId: UUID, webhookUrl: URL): Task[\/[Throwable, Message]] = {
+    val stagedMessage = Message.initializeMessage(content, correlationId, webhookUrl)
     val createdMessageOp = CreateMessageRepository.create(stagedMessage)
     val sentMessageOp = createdMessageOp.flatMap(sendMessage)
 

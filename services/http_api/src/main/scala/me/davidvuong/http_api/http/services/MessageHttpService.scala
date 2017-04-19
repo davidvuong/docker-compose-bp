@@ -13,7 +13,7 @@ import me.davidvuong.http_api.domain.http.{CreateMessageRequestDto, CreateMessag
 case class MessageHttpService(messageService: MessageService) {
   val service = HttpService {
     case req @ POST -> Root / "message" => req.decode[CreateMessageRequestDto] { m =>
-      messageService.createMessage(m.message, m.clientId, m.webhookUrl).flatMap {
+      messageService.createMessage(m.message, m.correlationId, m.webhookUrl).flatMap {
         case -\/(error)   => BadRequest(ApiResponse.failure(error.toString))
         case \/-(message) =>
           Ok(ApiResponse.success(CreateMessageResponseDto(message.id, message.status, message.createdAt)))

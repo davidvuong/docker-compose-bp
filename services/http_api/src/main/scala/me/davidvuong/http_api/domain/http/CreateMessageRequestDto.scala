@@ -9,11 +9,11 @@ import me.davidvuong.http_api.helpers.ArgonautHelpers._
 
 case class CreateMessageRequestDto(
   message: String,
-  clientId: UUID,
+  correlationId: UUID,
   webhookUrl: URL
 )
 
 object CreateMessageRequestDto {
   implicit def SendMessageRequestDtoCodecJson: CodecJson[CreateMessageRequestDto] =
-    casecodec3(CreateMessageRequestDto.apply, CreateMessageRequestDto.unapply)("message", "clientId", "webhookUrl")
+    casecodec3(CreateMessageRequestDto.apply, CreateMessageRequestDto.unapply)("message", "correlationId", "webhookUrl")
 }
